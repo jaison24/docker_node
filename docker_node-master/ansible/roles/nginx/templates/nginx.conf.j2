@@ -1,0 +1,21 @@
+# roles/nginx/templates/nginx.conf.j2
+http {
+    upstream nodejs_backend {
+        {% for node in hostvars['nodejs'].ansible_play_hosts %}
+        server {{ hostvars[node]['ansible_host'] }}:8000;
+        {% endfor %}
+    }
+
+    server {
+        listen 8000;
+
+        location / {
+            proxy_pass http://nodejs_backend;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_set_header Host $host;
+            proxy_cache_bypass $http_upgrade;
+        }
+    }
+}

@@ -1,0 +1,32 @@
+---
+# roles/redis/tasks/main.yml
+- name: Install Redis
+  apt:
+    name: redis-server
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Configure Redis to listen on all interfaces
+  template:
+    src: redis.conf.j2
+    dest: /etc/redis/redis.conf
+    owner: redis
+    group: redis
+    mode: '0644'
+  notify:
+    - Restart Redis
+
+- name: Ensure Redis is started and enabled
+  systemd:
+    name: redis-server
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Configure UFW to allow Redis port
+  ufw:
+    rule: allow
+    port: 6379
+    proto: tcp
+  become: yes

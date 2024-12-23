@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  node_wireguard:
+    image: node_wireguard_image
+    build:
+      context: /home/ubuntu/updated_node/docker_node
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+      - "{{ wireguard_ports }}"
+    environment:
+      - REDIS_URL=redis://{{ redis_host }}:6379
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - wg-network
+    volumes:
+      - ./etc/wireguard:/etc/wireguard
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+networks:
+  wg-network:
+    driver: bridge

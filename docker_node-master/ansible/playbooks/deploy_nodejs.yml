@@ -1,0 +1,15 @@
+---
+# playbooks/deploy_nodejs.yml
+- name: Deploy Node.js and WireGuard
+  hosts: nodejs
+  become: yes
+  vars:
+    wireguard_port: "{{ 51820 + ansible_play_hosts.index(inventory_hostname) }}"
+  tasks:
+    - name: Set WireGuard Port
+      set_fact:
+        wireguard_port: "{{ 51820 + ansible_play_hosts.index(inventory_hostname) }}"
+  
+  roles:
+    - common
+    - nodejs

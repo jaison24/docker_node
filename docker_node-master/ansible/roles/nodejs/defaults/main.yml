@@ -1,0 +1,2 @@
+wireguard_ports: "51820-51822/udp"
+redis_host: "192.168.0.103"

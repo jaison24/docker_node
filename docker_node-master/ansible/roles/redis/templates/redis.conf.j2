@@ -1,0 +1,17 @@
+# roles/redis/templates/redis.conf.j2
+bind 0.0.0.0
+protected-mode yes
+port 6379
+tcp-backlog 511
+timeout 0
+tcp-keepalive 300
+daemonize yes
+supervised no
+pidfile /var/run/redis/redis-server.pid
+loglevel notice
+logfile "/var/log/redis/redis-server.log"
+databases 16
+always-show-logo yes
+
+# Security
+requirepass your_redis_password_here

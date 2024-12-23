@@ -1,0 +1,12 @@
+---
+- hosts: wireguard
+  become: yes
+  tasks:
+    - name: Scale Node & WireGuard
+      ansible.builtin.docker_container:
+        name: node_wireguard
+        image: node_wireguard_image
+        state: started
+        published_ports:
+          - "8000:8000"
+          - "{{ wireguard_ports }}"

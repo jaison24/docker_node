@@ -1,0 +1,8 @@
+---
+# playbooks/deploy_nginx.yml
+- name: Deploy NGINX Load Balancer
+  hosts: load_balancer
+  become: yes
+  roles:
+    - common
+    - nginx

@@ -1,0 +1,8 @@
+---
+# playbooks/deploy_redis.yml
+- name: Deploy Redis Server
+  hosts: redis
+  become: yes
+  roles:
+    - common
+    - redis

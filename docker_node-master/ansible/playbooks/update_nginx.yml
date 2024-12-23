@@ -1,0 +1,7 @@
+---
+# playbooks/update_nginx.yml
+- name: Update NGINX with New Node.js Instances
+  hosts: load_balancer
+  become: yes
+  roles:
+    - nginx

@@ -1,0 +1,16 @@
+---
+# roles/common/tasks/main.yml
+- name: Update and upgrade apt packages
+  apt:
+    update_cache: yes
+    upgrade: dist
+  become: yes
+
+- name: Install essential packages
+  apt:
+    name:
+      - curl
+      - git
+      - ufw
+    state: present
+  become: yes

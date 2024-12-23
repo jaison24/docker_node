@@ -1,0 +1,5 @@
+---
+# roles/nodejs/vars/main.yml
+redis_host: "redis-server"  # This should be the hostname or IP of the Redis server
+wireguard_port: 51820        # Default, will be dynamically assigned
+instance_ip: "{{ ansible_host }}"  # IP of the current node
